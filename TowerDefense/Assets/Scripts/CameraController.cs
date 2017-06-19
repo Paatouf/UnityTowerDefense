@@ -23,19 +23,19 @@ public class CameraController : MonoBehaviour
             this.enabled = false;
         }
 
-        if (Input.GetKey("z") || Input.mousePosition.y >= Screen.height - panBorderThickness)
+        if (Input.GetKey("z"))
         {
             transform.Translate(Vector3.forward * panSpeed * Time.deltaTime, Space.World);
         }
-        if (Input.GetKey("s") || Input.mousePosition.y <= panBorderThickness)
+        if (Input.GetKey("s"))
         {
             transform.Translate(Vector3.back * panSpeed * Time.deltaTime, Space.World);
         }
-        if (Input.GetKey("d") || Input.mousePosition.x >= Screen.width - panBorderThickness)
+        if (Input.GetKey("d"))
         {
             transform.Translate(Vector3.right * panSpeed * Time.deltaTime, Space.World);
         }
-        if (Input.GetKey("q") || Input.mousePosition.x <= panBorderThickness)
+        if (Input.GetKey("q"))
         {
             transform.Translate(Vector3.left * panSpeed * Time.deltaTime, Space.World);
         }
