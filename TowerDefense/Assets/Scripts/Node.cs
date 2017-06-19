@@ -73,8 +73,8 @@ public class Node : MonoBehaviour
         Destroy(effect, 3f);
 
         Shop.instance.UpdateCost(blueprint);
+        BuildManager.instance.turretRadiusPrefab.SetActive(false);
 
-        
     }
     public void SellTurret()
     {
@@ -131,25 +131,32 @@ public class Node : MonoBehaviour
         if (!buildManager.CanBuild)
             return;
 
-        BuildManager.instance.turretRadiusPrefab.SetActive(true);
-
-
-        if (buildManager.HasMoney)
+        if(turret == null)
         {
-            rend.material.color = hoverColor;
-            SetTurretRadius(hoverColor);
+            BuildManager.instance.turretRadiusPrefab.SetActive(true);
+
+            if (buildManager.HasMoney)
+            {
+                rend.material.color = hoverColor;
+                SetTurretRadius(hoverColor);
+            }
+            else
+            {
+                rend.material.color = notEnoughMoneyColor;
+                SetTurretRadius(notEnoughMoneyColor);
+            }
         }
         else
         {
-            rend.material.color = notEnoughMoneyColor;
-            SetTurretRadius(notEnoughMoneyColor);
+            BuildManager.instance.turretRadiusPrefab.SetActive(false);
         }
+        
     }
 
     void SetTurretRadius(Color color)
     {
         Color radiusColor = BuildManager.instance.turretRadiusPrefab.GetComponent<Renderer>().material.color = color;
-        radiusColor = new Color(color.r, color.g, color.b, 0.1f);
+        radiusColor.a = 0.5f;
         BuildManager.instance.turretRadiusPrefab.transform.position = transform.position;
     }
 
