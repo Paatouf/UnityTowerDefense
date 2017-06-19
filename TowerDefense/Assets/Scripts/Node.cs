@@ -131,19 +131,32 @@ public class Node : MonoBehaviour
         if (!buildManager.CanBuild)
             return;
 
+        BuildManager.instance.turretRadiusPrefab.SetActive(true);
+
+
         if (buildManager.HasMoney)
         {
             rend.material.color = hoverColor;
+            SetTurretRadius(hoverColor);
         }
         else
         {
             rend.material.color = notEnoughMoneyColor;
+            SetTurretRadius(notEnoughMoneyColor);
         }
+    }
+
+    void SetTurretRadius(Color color)
+    {
+        Color radiusColor = BuildManager.instance.turretRadiusPrefab.GetComponent<Renderer>().material.color = color;
+        radiusColor = new Color(color.r, color.g, color.b, 0.1f);
+        BuildManager.instance.turretRadiusPrefab.transform.position = transform.position;
     }
 
     void OnMouseExit()
     {
-        rend.material.color = baseColor;    
+        rend.material.color = baseColor;
+        BuildManager.instance.turretRadiusPrefab.SetActive(false);
     }
 
 	public void Reset()

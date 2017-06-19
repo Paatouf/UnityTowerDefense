@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class BuildManager : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class BuildManager : MonoBehaviour
     public GameObject longRangeTurretPrefab;
     public GameObject missileTurretPrefab;
     public GameObject laserBeamerTurretPrefab;
+
+    public GameObject turretRadiusPrefab;
 
     public GameObject buildEffect;
     public GameObject sellEffect;
@@ -38,44 +41,13 @@ public class BuildManager : MonoBehaviour
 
     void Start()
     {
-        //CanBuild();
-        //HasMoney();
         shop = Shop.instance;
     }
 
-    /*public void CanBuild()
-    {
-        if (turretToBuild != null)
-        {
-            canBuild = true;
-        }
-        else
-        {
-            canBuild = false;
-        }
-    }
-
-    public void HasMoney()
-    {
-        if(turretToBuild !=null)
-        {
-            if (PlayerStats.Money >= turretToBuild.cost)
-            {
-                hasMoney = true;
-            }
-            else
-            {
-                hasMoney = false;
-            }
-        }
-        
-
-    }*/
-
-
     public void SelectTurretToBuild(TurretBlueprint turret)
-    {  
+    {
         turretToBuild = turret;
+        turretRadiusPrefab.transform.localScale = new Vector3(turret.prefab.GetComponent<Turret>().range, turret.prefab.GetComponent<Turret>().range, turret.prefab.GetComponent<Turret>().range);
         DeselectNode();
     }
 
