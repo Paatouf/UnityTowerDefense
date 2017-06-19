@@ -13,6 +13,11 @@ public class PlayerStats : MonoBehaviour
 
     public Text livesText;
 
+    void Start()
+    {
+        UpdateLives();
+    }
+
     public int Money
     {
         get { return startMoney; }

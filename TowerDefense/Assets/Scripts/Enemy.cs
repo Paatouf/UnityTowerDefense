@@ -35,7 +35,7 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        healthBar.transform.gameObject.transform.parent.parent.gameObject.SetActive(true);
+        healthBar.transform.parent.parent.gameObject.SetActive(true);
 
         health -= amount;
         healthBar.fillAmount = health / baseHealth;
@@ -67,14 +67,11 @@ public class Enemy : MonoBehaviour
     public void SetSpeed()
     {
         speed = System.Convert.ToInt32(System.Math.Floor(baseSpeed + (WaveSpawner.WaveIndex /2)));
-        Debug.Log("speed" + speed);
     }
 
     public void SetHealth()
     {
-
         health = System.Convert.ToInt32(System.Math.Floor(baseHealth + (WaveSpawner.WaveIndex * 4)));
-        Debug.Log("health" + health);
     }
    
 }
