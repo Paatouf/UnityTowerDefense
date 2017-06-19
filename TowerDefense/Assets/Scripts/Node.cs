@@ -94,6 +94,7 @@ public class Node : MonoBehaviour
         
         Destroy(turret);
         turretBlueprint = null;
+        isUpgraded = false;
     }
 
     public void UpgradeTurret()
