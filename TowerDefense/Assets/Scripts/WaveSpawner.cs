@@ -8,6 +8,7 @@ public class WaveSpawner : MonoBehaviour
     public static int EnemiesAlive = 0;
 
     public Wave[] waves;
+	private List<EnemyBase> m_enemiesList;
     public Transform spawnPoint;
     private GameObject waveCountPanel;
 
@@ -22,27 +23,18 @@ public class WaveSpawner : MonoBehaviour
 
     void Start()
     {
-        WaveIndex = 0;
-        EnemiesAlive = 0;
-        waveCountPanel = waveCountDownText.transform.parent.gameObject;
-        waveCountPanel.SetActive(true);
-
-        countdown = 10f;
-
-    }
+		Reset();
+	}
 
     void Update()
     {
-        Debug.Log("EnemiesAlive=> " + EnemiesAlive);
         if ( EnemiesAlive > 0 )
-        {
             return;
-        }
 
         if( countdown <= 0 )
         {
             countdown = timeBetweenWaves;
-            StartCoroutine(SpawnWave());
+            StartCoroutine( SpawnWave() );
             return;
         }
         
@@ -51,16 +43,35 @@ public class WaveSpawner : MonoBehaviour
         waveCountDownText.text = Mathf.Floor(countdown + 1).ToString();
     }
 
-    IEnumerator SpawnWave()
+	public void Reset()
+	{
+		if ( m_enemiesList != null && m_enemiesList.Count > 0 )
+		{
+			for ( int i = 0 ; i < m_enemiesList.Count ; ++i )
+				if( m_enemiesList[ i ] != null )
+					Destroy( m_enemiesList[ i ].gameObject );
+			m_enemiesList.Clear();
+		}
+
+		m_enemiesList = new List<EnemyBase>();
+		WaveIndex = 0;
+		EnemiesAlive = 0;
+		waveCountPanel = waveCountDownText.transform.parent.gameObject;
+		waveCountPanel.SetActive( true );
+
+		countdown = 10f;
+	}
+
+	IEnumerator SpawnWave()
     {
         Wave wave = waves[WaveIndex]; 
 
-        waveIndexText.text = (WaveIndex+1).ToString()+"/"+ waves.Length;
+        waveIndexText.text = (WaveIndex+1).ToString() + " / " + waves.Length;
         EnemiesAlive = wave.count;
 
         for (int i = 0; i < wave.count; i++)
         {
-            SpawnEnemy(wave.enemyPrefab);
+            SpawnEnemyBase( wave.EnemyBasePrefab );
             yield return new WaitForSeconds(1/wave.rate);
         }
         WaveIndex++;
@@ -68,13 +79,12 @@ public class WaveSpawner : MonoBehaviour
         if (WaveIndex == waves.Length)
         {
             GameManager.LevelIsWon = true;
-            
-            this.enabled = false;
+            enabled = false;
         }
     }
 
-    void SpawnEnemy(GameObject enemyPrefab)
+    void SpawnEnemyBase( GameObject EnemyBasePrefab )
     {
-        GameObject enemy = (GameObject)Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+       m_enemiesList.Add( Instantiate( EnemyBasePrefab, spawnPoint.position, spawnPoint.rotation ).GetComponent<EnemyBase>() );
     }
 }

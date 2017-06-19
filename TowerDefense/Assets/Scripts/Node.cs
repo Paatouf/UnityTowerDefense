@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 public class Node : MonoBehaviour
 {
@@ -27,7 +25,6 @@ public class Node : MonoBehaviour
     void Start ()
     {
         rend = GetComponent<Renderer>();
-
         buildManager = BuildManager.instance;
     }
 
@@ -35,6 +32,7 @@ public class Node : MonoBehaviour
     {
         return transform.position + positionOffset;
     }
+
     void OnMouseDown()
     {
         if (EventSystem.current.IsPointerOverGameObject())
@@ -61,15 +59,16 @@ public class Node : MonoBehaviour
             Debug.Log("Not enough money to build that! - TODO Display on UI");
             return;
         }
-        buildManager.RemoveMoney(buildManager.GetTurretToBuild().cost);
+
+		GameManager.instance.levelMgr.RemoveMoney(buildManager.GetTurretToBuild().cost);
 
 
-        GameObject _turret = (GameObject)Instantiate(blueprint.prefab, GetBuiltPosition(), Quaternion.identity);
+        GameObject _turret = Instantiate(blueprint.prefab, GetBuiltPosition(), Quaternion.identity);
         turret = _turret;
 
         turretBlueprint = blueprint;
 
-        GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuiltPosition(), Quaternion.identity);
+        GameObject effect = Instantiate(buildManager.buildEffect, GetBuiltPosition(), Quaternion.identity);
         effect.GetComponent<Renderer>().material.color = turret.GetComponentInChildren<MeshRenderer>().material.color;
         Destroy(effect, 3f);
 
@@ -87,9 +86,9 @@ public class Node : MonoBehaviour
         {
             GameManager.instance.playerStats.Money += turretBlueprint.GetSellAmount()*2;
         }
-        BuildManager.instance.RefreshMoney();
+		GameManager.instance.levelMgr.RefreshMoney();
 
-        GameObject effect = (GameObject)Instantiate(buildManager.sellEffect, GetBuiltPosition(), Quaternion.identity);
+        GameObject effect = Instantiate(buildManager.sellEffect, GetBuiltPosition(), Quaternion.identity);
         effect.GetComponent<Renderer>().material.color = turret.GetComponentInChildren<MeshRenderer>().material.color;
         Destroy(effect, 3f);
         
@@ -104,28 +103,24 @@ public class Node : MonoBehaviour
             Debug.Log("Not enough money to upgrade that! - TODO Display on UI");
             return;
         }
-        buildManager.RemoveMoney(turretBlueprint.upgradedCost);
+
+		GameManager.instance.levelMgr.RemoveMoney(turretBlueprint.upgradedCost);
 
         
         //destroy the old one
         Destroy(turret);
 
         //build a new one
-        GameObject _turret = (GameObject)Instantiate(turretBlueprint.upgradedPrefab, GetBuiltPosition(), Quaternion.identity);
+        GameObject _turret = Instantiate(turretBlueprint.upgradedPrefab, GetBuiltPosition(), Quaternion.identity);
         turret = _turret;
 
-        
-
         // à changer pour un effet d'upgrade dédié
-        GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuiltPosition(), Quaternion.identity); 
+        GameObject effect = Instantiate(buildManager.buildEffect, GetBuiltPosition(), Quaternion.identity); 
         effect.GetComponent<Renderer>().material.color = turret.GetComponentInChildren<MeshRenderer>().material.color;
         Destroy(effect, 3f);
-
-
+		
         isUpgraded = true;
-      
     }
-
 
     void OnMouseEnter()
     {
@@ -149,4 +144,11 @@ public class Node : MonoBehaviour
     {
         rend.material.color = baseColor;    
     }
+
+	public void Reset()
+	{
+		Destroy( turret );
+		turretBlueprint = null;
+		isUpgraded = false;
+	}
 }

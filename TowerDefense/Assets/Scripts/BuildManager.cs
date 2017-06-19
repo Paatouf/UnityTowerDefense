@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class BuildManager : MonoBehaviour
@@ -15,8 +13,6 @@ public class BuildManager : MonoBehaviour
     public GameObject sellEffect;
     private TurretBlueprint turretToBuild;
     private Node selectedNode;
-
-    public Text moneyText;
 
     //public bool canBuild = false;
     //ublic bool hasMoney = true;
@@ -42,7 +38,6 @@ public class BuildManager : MonoBehaviour
 
     void Start()
     {
-        RefreshMoney();
         //CanBuild();
         //HasMoney();
         shop = Shop.instance;
@@ -107,21 +102,5 @@ public class BuildManager : MonoBehaviour
     {
         selectedNode = null;
         nodeUI.Hide();
-    }
-    
-    public void AddMoney(int value)
-    {
-        GameManager.instance.playerStats.Money += value;
-        RefreshMoney();
-    }
-    public void RemoveMoney(int value)
-    {
-        GameManager.instance.playerStats.Money -= value;
-        RefreshMoney();
-    }
-
-    public void RefreshMoney()
-    {
-        moneyText.text = "$ "+ GameManager.instance.playerStats.Money;
     }
 }

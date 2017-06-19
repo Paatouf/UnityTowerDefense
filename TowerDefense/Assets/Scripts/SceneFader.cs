@@ -1,11 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class SceneFader : MonoBehaviour
 {
-
 	public Image img;
 	public AnimationCurve curve;
 
@@ -28,8 +26,9 @@ public class SceneFader : MonoBehaviour
 			t -= Time.deltaTime;
 			float a = curve.Evaluate(t);
 			img.color = new Color(0f, 0f, 0f, a);
-			yield return 0;
+			yield return null;
 		}
+		GameManager.instance.Launch();
 	}
 
 	IEnumerator FadeOut(string scene)
@@ -41,10 +40,9 @@ public class SceneFader : MonoBehaviour
 			t += Time.deltaTime;
 			float a = curve.Evaluate(t);
 			img.color = new Color(0f, 0f, 0f, a);
-			yield return 0;
+			yield return null;
 		}
-
-		SceneManager.LoadScene(scene);
+		GameManager.instance.ResetGame();
+		StartCoroutine(FadeIn());
 	}
-
 }

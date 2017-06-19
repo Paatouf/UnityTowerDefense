@@ -6,15 +6,16 @@ public class GameManager : MonoBehaviour
 {
     public static bool GameIsOver;
     public static bool LevelIsWon;
+	public bool bGameIsStarted = false;
 
     public GameObject gameOverUI;
     public GameObject levelWonUI;
 
     public WaveSpawner waveSpawner;
-
     public PlayerStats playerStats;
+	public LevelManager levelMgr;
 
-    public static GameManager instance
+	public static GameManager instance
     {
         get
         {
@@ -30,17 +31,17 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        s_instance = GetComponent<GameManager>();
+		SetInstance(GetComponent<GameManager>());
         playerStats = GetComponent<PlayerStats>();
         ResetGame();
-    }
+	}
 
     private static void SetInstance(GameManager newInstance)
     {
         if (newInstance != null)
         {
             s_instance = newInstance;
-            GameObject.DontDestroyOnLoad(s_instance.gameObject);
+            DontDestroyOnLoad(s_instance.gameObject);
         }
     }
 
@@ -67,7 +68,7 @@ public class GameManager : MonoBehaviour
     {
         if (IsInstanceValid())
         {
-            GameObject.Destroy(s_instance.gameObject);
+            Destroy(s_instance.gameObject);
             FreeInstance();
         }
     }
@@ -89,7 +90,7 @@ public class GameManager : MonoBehaviour
 
     void Update ()
     {
-        if (GameIsOver)
+        if (GameIsOver || !bGameIsStarted)
             return;
 
         if (LevelIsWon)
@@ -110,9 +111,20 @@ public class GameManager : MonoBehaviour
         gameOverUI.SetActive(true);
     }
 
-    void ResetGame()
+	public void Launch()
+	{
+		bGameIsStarted = true;
+	}
+
+
+	public void ResetGame()
     {
-        GameIsOver = false;
-    }
+		bGameIsStarted = false;
+		GameIsOver = false;
+
+		waveSpawner.Reset();
+		levelMgr.Reset();
+		playerStats.Reset();
+	}
 
 }

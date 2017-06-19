@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
@@ -41,8 +39,7 @@ public class Bullet : MonoBehaviour
 
     void HitTarget()
     {
-
-        GameObject effectIns = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
+        GameObject effectIns = Instantiate(impactEffect, transform.position, transform.rotation);
         Destroy(effectIns,3f);
 
         if(explosionRadius > 0)
@@ -51,15 +48,15 @@ public class Bullet : MonoBehaviour
         }
         else
         {
-            Damage(target);
+            Damage( target );
         }
 
         Destroy(gameObject);
     }
 
-    void Damage(Transform enemy)
+    void Damage(Transform EnemyBase)
     {
-        Enemy e = enemy.GetComponent<Enemy>();
+        EnemyBase e = EnemyBase.GetComponent<EnemyBase>();
         
         if(e != null)
         {
@@ -73,7 +70,7 @@ public class Bullet : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
         foreach(Collider collider in colliders)
         {
-            if(collider.tag == "Enemy")
+            if( collider.tag == "EnemyBase" )
             {
                 Damage(collider.transform);
             }

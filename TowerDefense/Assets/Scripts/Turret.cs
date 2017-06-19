@@ -5,7 +5,7 @@ using UnityEngine;
 public class Turret : MonoBehaviour
 {
     private GameObject target;
-    private Enemy targetEnemy;
+    private EnemyBase targetEnemyBase;
 
 
     [Header("General")]
@@ -27,7 +27,7 @@ public class Turret : MonoBehaviour
 
 
     [Header("Unity Setup Fields")]
-    public string enemyTag = "Enemy";
+    public string EnemyBaseTag = "Enemy";
     public float turnSpeed = 10f;
     public Transform partToRotate;
 
@@ -37,34 +37,37 @@ public class Turret : MonoBehaviour
 
     void Start()
     {
-        InvokeRepeating("UpdateTarget", 0f, 0.5f);
+        InvokeRepeating( "UpdateTarget", 0f, 0.5f );
     }
 
     void UpdateTarget()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
-        float shotestDistance = Mathf.Infinity;
-        GameObject nearestEnemy = null;
-        
-        foreach(GameObject enemy in enemies)
-        {
-            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-            if(distanceToEnemy < shotestDistance)
-            {
-                shotestDistance = distanceToEnemy;
-                nearestEnemy = enemy.gameObject;
-            }
-        }
+		if ( GameManager.instance.bGameIsStarted )
+		{
+			GameObject[] enemies = GameObject.FindGameObjectsWithTag( EnemyBaseTag );
+			float shotestDistance = Mathf.Infinity;
+			GameObject nearestEnemyBase = null;
 
-        if(nearestEnemy != null && shotestDistance <= range)
-        {
-            target = nearestEnemy;
-            targetEnemy = nearestEnemy.GetComponent<Enemy>();
-        }
-        else
-        {
-            target = null;
-        }
+			foreach ( GameObject EnemyBase in enemies )
+			{
+				float distanceToEnemyBase = Vector3.Distance( transform.position, EnemyBase.transform.position );
+				if ( distanceToEnemyBase < shotestDistance )
+				{
+					shotestDistance = distanceToEnemyBase;
+					nearestEnemyBase = EnemyBase.gameObject;
+				}
+			}
+
+			if ( nearestEnemyBase != null && shotestDistance <= range )
+			{
+				target = nearestEnemyBase;
+				targetEnemyBase = nearestEnemyBase.GetComponent<EnemyBase>();
+			}
+			else
+			{
+				target = null;
+			}
+		}
     }
 
     void Update()
@@ -104,8 +107,11 @@ public class Turret : MonoBehaviour
 
     void Laser()
     {
-        targetEnemy.TakeDamage(damageOverTime * Time.deltaTime);
-        targetEnemy.Slow(slowPercent);
+		if ( targetEnemyBase != null )
+		{
+			targetEnemyBase.TakeDamage( damageOverTime * Time.deltaTime );
+			targetEnemyBase.Slow( slowPercent );
+		}
 
         if (!lineRenderer.enabled)
         {
@@ -119,24 +125,23 @@ public class Turret : MonoBehaviour
         lineRenderer.SetPosition(1, target.transform.position);
 
         Vector3 dir = firePoint.position - target.transform.position;
-
-        impactEffect.transform.position = target.transform.position +dir.normalized;
-        impactEffect.transform.rotation = Quaternion.LookRotation(dir);
+        impactEffect.transform.position = target.transform.position + dir.normalized;
+        impactEffect.transform.rotation = Quaternion.LookRotation( dir );
 
         
     }
     void LockOnTarget()
     {
         Vector3 dir = target.transform.position - transform.position;
-        Quaternion lookRotation = Quaternion.LookRotation(dir);
+        Quaternion lookRotation = Quaternion.LookRotation( dir );
         Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, turnSpeed * Time.deltaTime).eulerAngles;
         partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
     }
 
     void Shoot()
     {
-       GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        Bullet bullet = bulletGO.GetComponent<Bullet>();
+		GameObject bulletGO = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+		Bullet bullet = bulletGO.GetComponent<Bullet>();
 
         if (bullet != null)
         {

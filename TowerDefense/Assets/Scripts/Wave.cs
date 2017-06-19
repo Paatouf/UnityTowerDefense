@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class Wave
 {
-    public GameObject enemyPrefab;
+	public List<EnemyBase.EnemyType> m_enemiesList;
+    public GameObject EnemyBasePrefab;
     public int count;
     public float rate;
 }

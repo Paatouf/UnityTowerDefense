@@ -6,31 +6,43 @@ using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
-    [SerializeField]
-    private int startMoney = 20;
-    [SerializeField]
-    private int startLives = 10;
+	private int m_nCurrentMoney = 20;
+    private int m_nCurrentLives = 10;
+
+	public int nBaseMoney = 20;
+	public int nBaseLives = 10;
 
     public Text livesText;
 
-    public int Money
+	public void Start()
+	{
+		Reset();
+	}
+
+	public int Money
     {
-        get { return startMoney; }
-        set { startMoney = value; }
+        get { return m_nCurrentMoney; }
+        set { m_nCurrentMoney = value; }
     }
 
     public int Lives
     {
-        get { return startLives; }
+        get { return m_nCurrentLives; }
         set
         {
-            startLives = value;
+			m_nCurrentLives = value;
             UpdateLives();
         }
     }
     
     void UpdateLives()
     {
-        livesText.text = "Lives: "+ startLives.ToString();
+        livesText.text = "Lives: "+ m_nCurrentLives.ToString();
     }
+
+	public void Reset()
+	{
+		Money = nBaseMoney;
+		Lives = nBaseLives;
+	}
 }
