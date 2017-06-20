@@ -33,6 +33,7 @@ public class Node : MonoBehaviour
         return transform.position + positionOffset;
     }
 
+
     void OnMouseDown()
     {
 
@@ -50,18 +51,50 @@ public class Node : MonoBehaviour
 
     void OnMouseEnter()
     {
+        if (!buildManager.CanBuild)
+            return;
+
         if (Input.GetMouseButton(0))
         {
             if (turret != null)
             {
+                BuildManager.instance.turretRadiusPrefab.SetActive(false);
                 return;
             }
+            else
+            {
+                BuildTurret(buildManager.GetTurretToBuild());
+                BuildManager.instance.turretRadiusPrefab.transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+                BuildManager.instance.turretRadiusPrefab.SetActive(true);
 
-            if (!buildManager.CanBuild)
-                return;
+                
+            }
 
-            BuildTurret(buildManager.GetTurretToBuild());
-        }  
+            
+        }
+        else
+        {
+            if (turret == null)
+            {
+                BuildManager.instance.turretRadiusPrefab.SetActive(true);
+
+                if (buildManager.HasMoney)
+                {
+                    rend.material.color = hoverColor;
+                    SetTurretRadius(hoverColor);
+                }
+                else
+                {
+                    rend.material.color = notEnoughMoneyColor;
+                    SetTurretRadius(notEnoughMoneyColor);
+                }
+            }
+            else
+            {
+                BuildManager.instance.turretRadiusPrefab.SetActive(false);
+            }
+        }
+   
     }
 
     void BuildTurret(TurretBlueprint blueprint)
@@ -144,7 +177,7 @@ public class Node : MonoBehaviour
 
     void OnMouseExit()
     {
-        rend.material.color = baseColor;
+        ResetBaseColor();
         BuildManager.instance.turretRadiusPrefab.SetActive(false);
     }
 
@@ -154,4 +187,9 @@ public class Node : MonoBehaviour
 		turretBlueprint = null;
 		isUpgraded = false;
 	}
+
+    public void ResetBaseColor()
+    {
+        rend.material.color = baseColor;
+    }
 }
