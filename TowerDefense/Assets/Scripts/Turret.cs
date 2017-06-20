@@ -42,7 +42,7 @@ public class Turret : MonoBehaviour
 
     void UpdateTarget()
     {
-		if ( GameManager.instance.bGameIsStarted )
+		if ( GameManager.GameState == GameManager.LevelState.InProgress )
 		{
 			GameObject[] enemies = GameObject.FindGameObjectsWithTag( EnemyBaseTag );
 			float shotestDistance = Mathf.Infinity;
