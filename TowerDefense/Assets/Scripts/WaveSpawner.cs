@@ -48,7 +48,7 @@ public class WaveSpawner : MonoBehaviour
 		if ( GameManager.GameState == GameManager.LevelState.InProgress && WaveIndex == waves.Length && EnemiesAlive == 0 && GameManager.instance.playerStats.Lives > 0 )
 		{
 			GameManager.GameState = GameManager.LevelState.Win;
-			enabled = false;
+			//enabled = false;
 			return;
 		}
 
