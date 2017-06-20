@@ -35,8 +35,6 @@ public class Node : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
-            return;
 
         if(turret != null)
         {
@@ -47,9 +45,23 @@ public class Node : MonoBehaviour
         if (!buildManager.CanBuild)
             return;
 
+        BuildTurret(buildManager.GetTurretToBuild());
+    }
 
-        if(buildManager.CanBuild)
+    void OnMouseEnter()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            if (turret != null)
+            {
+                return;
+            }
+
+            if (!buildManager.CanBuild)
+                return;
+
             BuildTurret(buildManager.GetTurretToBuild());
+        }  
     }
 
     void BuildTurret(TurretBlueprint blueprint)
@@ -123,41 +135,11 @@ public class Node : MonoBehaviour
         isUpgraded = true;
     }
 
-    void OnMouseEnter()
-    {
-        if (EventSystem.current.IsPointerOverGameObject())
-            return;
-
-        if (!buildManager.CanBuild)
-            return;
-
-        if(turret == null)
-        {
-            BuildManager.instance.turretRadiusPrefab.SetActive(true);
-
-            if (buildManager.HasMoney)
-            {
-                rend.material.color = hoverColor;
-                SetTurretRadius(hoverColor);
-            }
-            else
-            {
-                rend.material.color = notEnoughMoneyColor;
-                SetTurretRadius(notEnoughMoneyColor);
-            }
-        }
-        else
-        {
-            BuildManager.instance.turretRadiusPrefab.SetActive(false);
-        }
-        
-    }
-
     void SetTurretRadius(Color color)
     {
-        Color radiusColor = BuildManager.instance.turretRadiusPrefab.GetComponent<Renderer>().material.color = color;
-        radiusColor.a = 0.5f;
-        BuildManager.instance.turretRadiusPrefab.transform.position = transform.position;
+        color.a = 0.3f;
+        BuildManager.instance.turretRadiusPrefab.GetComponent<Renderer>().material.color= color;
+        BuildManager.instance.turretRadiusPrefab.transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
     }
 
     void OnMouseExit()

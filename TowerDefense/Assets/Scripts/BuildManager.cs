@@ -47,7 +47,7 @@ public class BuildManager : MonoBehaviour
     public void SelectTurretToBuild(TurretBlueprint turret)
     {
         turretToBuild = turret;
-        turretRadiusPrefab.transform.localScale = new Vector3(turret.prefab.GetComponent<Turret>().range*2, turret.prefab.GetComponent<Turret>().range*2, turret.prefab.GetComponent<Turret>().range*2);
+        turretRadiusPrefab.transform.localScale = new Vector3(turret.prefab.GetComponent<Turret>().range*2, 1, turret.prefab.GetComponent<Turret>().range*2);
         DeselectNode();
     }
 
@@ -65,8 +65,6 @@ public class BuildManager : MonoBehaviour
         }
 
         selectedNode = node;
-        turretToBuild = null;
-
         nodeUI.SetTarget(node);
     }
 

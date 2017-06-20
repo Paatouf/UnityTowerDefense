@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public WaveSpawner waveSpawner;
     public PlayerStats playerStats;
 	public LevelManager levelMgr;
+    public NodeUI nodeUI;
 
 	public static GameManager instance
     {
@@ -122,7 +123,9 @@ public class GameManager : MonoBehaviour
 		bGameIsStarted = false;
 		GameIsOver = false;
 
-		waveSpawner.Reset();
+        nodeUI.Hide();
+
+        waveSpawner.Reset();
 		levelMgr.Reset();
 		playerStats.Reset();
 	}
