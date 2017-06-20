@@ -28,20 +28,31 @@ public class WaveSpawner : MonoBehaviour
 
     void Update()
     {
-        if ( EnemiesAlive > 0 )
-            return;
+		if ( GameManager.GameState == GameManager.LevelState.InProgress )
+		{
+			if ( EnemiesAlive > 0 )
+				return;
 
-        if( countdown <= 0 )
-        {
-            countdown = timeBetweenWaves;
-            StartCoroutine( SpawnWave() );
-            return;
-        }
-        
-        countdown -= Time.deltaTime;
-        
-        waveCountDownText.text = Mathf.Floor(countdown + 1).ToString();
-    }
+			if ( countdown <= 0 )
+			{
+				countdown = timeBetweenWaves;
+				StartCoroutine( SpawnWave() );
+				return;
+			}
+
+			countdown -= Time.deltaTime;
+
+			waveCountDownText.text = Mathf.Floor( countdown + 1 ).ToString();
+		}
+
+		if ( GameManager.GameState == GameManager.LevelState.InProgress && WaveIndex == waves.Length && EnemiesAlive == 0 && GameManager.instance.playerStats.Lives > 0 )
+		{
+			GameManager.GameState = GameManager.LevelState.Win;
+			enabled = false;
+			return;
+		}
+
+	}
 
 	public void Reset()
 	{
@@ -64,23 +75,20 @@ public class WaveSpawner : MonoBehaviour
 
 	IEnumerator SpawnWave()
     {
-        Wave wave = waves[WaveIndex]; 
+		if ( WaveIndex < waves.Length )
+		{
+			Wave wave = waves[ WaveIndex ];
 
-        waveIndexText.text = (WaveIndex+1).ToString() + " / " + waves.Length;
-        EnemiesAlive = wave.count;
+			waveIndexText.text = ( WaveIndex + 1 ).ToString() + " / " + waves.Length;
+			EnemiesAlive = wave.count;
 
-        for (int i = 0; i < wave.count; i++)
-        {
-            SpawnEnemyBase( wave.EnemyBasePrefab );
-            yield return new WaitForSeconds(1/wave.rate);
-        }
-        WaveIndex++;
-
-        if (WaveIndex == waves.Length)
-        {
-            GameManager.LevelIsWon = true;
-            enabled = false;
-        }
+			for ( int i = 0 ; i < wave.count ; i++ )
+			{
+				SpawnEnemyBase( wave.EnemyBasePrefab );
+				yield return new WaitForSeconds( 1 / wave.rate );
+			}
+			WaveIndex++;
+		}
     }
 
     void SpawnEnemyBase( GameObject EnemyBasePrefab )

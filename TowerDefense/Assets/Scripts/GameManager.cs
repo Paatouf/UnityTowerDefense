@@ -4,17 +4,23 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static bool GameIsOver;
-    public static bool LevelIsWon;
-	public bool bGameIsStarted = false;
+    public static LevelState GameState = LevelState.NotStarted;
 
-    public GameObject gameOverUI;
-    public GameObject levelWonUI;
+    public GameObject endGameUI;
 
     public WaveSpawner waveSpawner;
     public PlayerStats playerStats;
 	public LevelManager levelMgr;
     public NodeUI nodeUI;
+
+	public enum LevelState
+	{
+		NotStarted = 0,
+		InProgress = 1,
+		Win = 2,
+		Lose = 3,
+		Count
+	}
 
 	public static GameManager instance
     {
@@ -91,16 +97,10 @@ public class GameManager : MonoBehaviour
 
     void Update ()
     {
-        if (GameIsOver || !bGameIsStarted)
+        if ( GameState == LevelState.NotStarted )
             return;
 
-        if (LevelIsWon)
-        {
-            levelWonUI.SetActive(true);
-            return;
-        }
-
-		if( playerStats.Lives <= 0 )
+		if( GameState == LevelState.Win || GameState == LevelState.Lose )
         {
             EndGame();
         }
@@ -108,23 +108,21 @@ public class GameManager : MonoBehaviour
 
     void EndGame()
     {
-        GameIsOver = true;
-        gameOverUI.SetActive(true);
-    }
+		endGameUI.SetActive( true );
+	}
 
 	public void Launch()
 	{
-		bGameIsStarted = true;
+		GameState = LevelState.InProgress;
 	}
 
 
 	public void ResetGame()
     {
-		bGameIsStarted = false;
-		GameIsOver = false;
+		GameState = LevelState.NotStarted;
 
         nodeUI.Hide();
-
+		endGameUI.SetActive( false );
         waveSpawner.Reset();
 		levelMgr.Reset();
 		playerStats.Reset();

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 
@@ -31,7 +29,9 @@ public class PlayerStats : MonoBehaviour
         set
         {
 			m_nCurrentLives = value;
-            UpdateLives();
+			if ( m_nCurrentLives <= 0 )
+				GameManager.GameState = GameManager.LevelState.Lose;
+			UpdateLives();
         }
     }
     

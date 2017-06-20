@@ -7,14 +7,17 @@ public class SceneFader : MonoBehaviour
 	public Image img;
 	public AnimationCurve curve;
 
+	//Réutiliser le scene manager à l'avenir.
+	//Tester le nom de la scène avant de switch, si c'est la même retry tout simple du level sans reload de scene sinon scene manager.
+
 	void Start()
 	{
 		StartCoroutine(FadeIn());
 	}
 
-	public void FadeTo(string scene)
+	public void FadeTo()
 	{
-		StartCoroutine(FadeOut(scene));
+		StartCoroutine(FadeOut());
 	}
 
 	IEnumerator FadeIn()
@@ -31,7 +34,7 @@ public class SceneFader : MonoBehaviour
 		GameManager.instance.Launch();
 	}
 
-	IEnumerator FadeOut(string scene)
+	IEnumerator FadeOut()
 	{
 		float t = 0f;
 

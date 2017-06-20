@@ -18,9 +18,9 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.GameIsOver)
+        if ( GameManager.GameState == GameManager.LevelState.Lose )
         {
-            this.enabled = false;
+            enabled = false;
         }
 
         if (Input.GetKey("z"))
