@@ -4,10 +4,10 @@ public class Node : MonoBehaviour
 {
     public Color hoverColor;
     public Color notEnoughMoneyColor;
-    private Color baseColor;
+    public Color baseColor;
     public Vector3 positionOffset;
 
-    private Renderer rend;
+    public Renderer rend;
 
     [HideInInspector]
     public GameObject turret;
@@ -36,8 +36,10 @@ public class Node : MonoBehaviour
 
     void OnMouseDown()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
 
-        if(turret != null)
+        if (turret != null)
         {
             buildManager.SelectNode(this);
             return;
@@ -51,6 +53,9 @@ public class Node : MonoBehaviour
 
     void OnMouseEnter()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+
         if (!buildManager.CanBuild)
             return;
 
