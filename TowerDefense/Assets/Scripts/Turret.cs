@@ -72,7 +72,7 @@ public class Turret : MonoBehaviour
 
     void Update()
     {
-        if(target == null)
+        if (target == null)
         {
             if(useLaser)
             {
@@ -135,7 +135,7 @@ public class Turret : MonoBehaviour
         Vector3 dir = target.transform.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation( dir );
         Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, turnSpeed * Time.deltaTime).eulerAngles;
-        partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+        partToRotate.rotation = Quaternion.Euler(rotation.x, rotation.y, rotation.z);
     }
 
     void Shoot()
