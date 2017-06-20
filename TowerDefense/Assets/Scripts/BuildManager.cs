@@ -39,16 +39,13 @@ public class BuildManager : MonoBehaviour
        
     }
 
-    void Start()
-    {
-        shop = Shop.instance;
-    }
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(1))
         {
             nodeUI.Hide();
+            Shop.instance.TurretSelectedSquare.SetActive(false);
             SelectTurretToBuild(null);
             turretRadiusPrefab.SetActive(false);
 
@@ -61,8 +58,13 @@ public class BuildManager : MonoBehaviour
         turretToBuild = turret;
         if (turretToBuild != null)
         {
+            Shop.instance.TurretSelectedSquare.SetActive(true);
             turretRadiusPrefab.transform.localScale = new Vector3(turret.prefab.GetComponent<Turret>().range * 2, 1, turret.prefab.GetComponent<Turret>().range * 2);
             DeselectNode();
+        }
+        else
+        {
+            Shop.instance.TurretSelectedSquare.SetActive(false);
         }
     }
 
@@ -82,6 +84,7 @@ public class BuildManager : MonoBehaviour
         selectedNode = node;
         nodeUI.SetTarget(node);
         turretToBuild = null;
+        Shop.instance.TurretSelectedSquare.SetActive(false);
     }
 
     public void DeselectNode()

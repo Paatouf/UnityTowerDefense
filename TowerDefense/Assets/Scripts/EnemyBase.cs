@@ -70,13 +70,11 @@ public class EnemyBase : MonoBehaviour
     public void SetSpeed()
     {
 		fSpeed = Mathf.Floor( baseSpeed + ( WaveSpawner.WaveIndex * 0.5f ));
-        Debug.Log("speed" + fSpeed );
     }
 
     public void SetHealth()
     {
         fHealth = Mathf.Floor(baseHealth + ( WaveSpawner.WaveIndex * 4 ));
-        Debug.Log( "health" + fHealth );
     }
    
 }
