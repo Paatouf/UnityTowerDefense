@@ -3,9 +3,11 @@ using UnityEngine.UI;
 
 public class EnemyBase : MonoBehaviour
 {
-	public enum EnemyType
+    public EnemyType enemyType = EnemyType.Standard;
+
+    public enum EnemyType
 	{
-		Normal,
+		Standard,
 		Fast,
 		Boss,
 		Count

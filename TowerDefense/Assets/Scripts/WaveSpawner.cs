@@ -5,9 +5,20 @@ using UnityEngine.UI;
 
 public class WaveSpawner : MonoBehaviour
 {
+    [SerializeField]
+    private List<GameObject> m_prefabList;
+
+    public WaveSpawnerType waveSpawnerType = WaveSpawnerType.WaveCount;
+
+    public enum WaveSpawnerType
+    {
+        Endless = 0,
+        WaveCount = 1
+    }
+
     public static int EnemiesAlive = 0;
 
-    public Wave[] waves;
+    public List<Wave> waves;
 	private List<EnemyBase> m_enemiesList;
     public Transform spawnPoint;
     private GameObject waveCountPanel;
@@ -23,35 +34,33 @@ public class WaveSpawner : MonoBehaviour
 
     void Start()
     {
-		Reset();
+        Reset();
 	}
 
     void Update()
     {
-		if ( GameManager.GameState == GameManager.LevelState.InProgress )
-		{
-			if ( EnemiesAlive > 0 )
-				return;
+            if (GameManager.GameState == GameManager.LevelState.InProgress)
+            {
+                if (EnemiesAlive > 0)
+                    return;
 
-			if ( countdown <= 0 )
-			{
-				countdown = timeBetweenWaves;
-				StartCoroutine( SpawnWave() );
-				return;
-			}
+                if (countdown <= 0)
+                {
+                    countdown = timeBetweenWaves;
+                    StartCoroutine(SpawnWave());
+                    return;
+                }
 
-			countdown -= Time.deltaTime;
+                countdown -= Time.deltaTime;
+                waveCountDownText.text = Mathf.Floor(countdown + 1).ToString();
+            }
 
-			waveCountDownText.text = Mathf.Floor( countdown + 1 ).ToString();
-		}
-
-		if ( GameManager.GameState == GameManager.LevelState.InProgress && WaveIndex == waves.Length && EnemiesAlive == 0 && GameManager.instance.playerStats.Lives > 0 )
-		{
-			GameManager.GameState = GameManager.LevelState.Win;
-			//enabled = false;
-			return;
-		}
-
+            if (GameManager.GameState == GameManager.LevelState.InProgress && WaveIndex == waves.Count && EnemiesAlive == 0 && GameManager.instance.playerStats.Lives > 0)
+            {
+                GameManager.GameState = GameManager.LevelState.Win;
+                //enabled = false;
+                return;
+            }
 	}
 
 	public void Reset()
@@ -70,23 +79,30 @@ public class WaveSpawner : MonoBehaviour
 		waveCountPanel = waveCountDownText.transform.parent.gameObject;
 		waveCountPanel.SetActive( true );
 
-		countdown = 10f;
+        waveCountDownText.text = "";
+        waveIndexText.text = "";
+
+        countdown = 10f;
 	}
 
 	IEnumerator SpawnWave()
     {
-		if ( WaveIndex < waves.Length )
+		if ( WaveIndex < waves.Count)
 		{
 			Wave wave = waves[ WaveIndex ];
 
-			waveIndexText.text = ( WaveIndex + 1 ).ToString() + " / " + waves.Length;
+			waveIndexText.text = ( WaveIndex + 1 ).ToString() + " / " + waves.Count;
 			EnemiesAlive = wave.count;
 
-			for ( int i = 0 ; i < wave.count ; i++ )
-			{
-				SpawnEnemyBase( wave.EnemyBasePrefab );
-				yield return new WaitForSeconds( 1 / wave.rate );
-			}
+            for (int i = 0; i < wave.m_enemiesList.Count; ++i)
+            {
+                for (int j = 0; j < wave.m_enemiesList[i].size; ++j)
+                {
+                    SpawnEnemyBase(m_prefabList[(int)wave.m_enemiesList[i].type]);
+                    yield return new WaitForSeconds(1 / wave.fRate);
+                }
+                //yield return new WaitForSeconds(1 / wave.fRate);
+            }
 			WaveIndex++;
 		}
     }

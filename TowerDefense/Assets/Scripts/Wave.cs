@@ -4,15 +4,18 @@ using UnityEngine;
 [System.Serializable]
 public class Wave
 {
-    //Ces 2 champs deviennent une classe ou une structure
-    public List<EnemyBase.EnemyType> m_enemiesList;
-    public float rate;
-
-    //Nombre total d'ennemis sur la vague
-    public int count;
-
     //Type de la vague à spawner
+    public WaveType waveType = WaveType.Random;
 
+    public enum WaveType
+    {
+        Random = 0,
+        Define = 1,
+        Count
+    }
 
-    public GameObject EnemyBasePrefab;  
+    //Ces 2 champs deviennent une classe ou une structure
+    public List<EnemyBatch> m_enemiesList;
+    public int count;
+    public float fRate;
 }
