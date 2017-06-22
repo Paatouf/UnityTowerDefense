@@ -6,7 +6,7 @@ public class Turret : MonoBehaviour
 {
     private GameObject target;
     private EnemyBase targetEnemyBase;
-
+    private bool canShoot;
 
     [Header("General")]
     public float range = 15f;
@@ -54,7 +54,24 @@ public class Turret : MonoBehaviour
 				if ( distanceToEnemyBase < shotestDistance )
 				{
 					shotestDistance = distanceToEnemyBase;
-					nearestEnemyBase = EnemyBase.gameObject;
+                    nearestEnemyBase = EnemyBase.gameObject;
+
+                    RaycastHit hit;
+
+                    if (Physics.Raycast(firePoint.position, (nearestEnemyBase.transform.position - transform.position), out hit, range))
+                    {
+                        if(hit.transform.tag =="Enemy")
+                        {
+                            canShoot = true;
+                        }
+                        else
+                        {
+                            canShoot = false;
+                        }
+                    }
+
+
+                    
 				}
 			}
 
@@ -91,14 +108,30 @@ public class Turret : MonoBehaviour
         
         if(useLaser)
         {
-            Laser();
+            if (canShoot)
+            {
+                Laser();
+            }
+            else
+            {
+                if (lineRenderer.enabled)
+                {
+                    lineRenderer.enabled = false;
+                    impactEffect.Stop();
+                    impactLight.enabled = false;
+                }
+            }
         }
         else
         {
             if (fireCountdown <= 0f)
             {
-                Shoot();
-                fireCountdown = 1f / fireRate;
+                if(canShoot)
+                {
+                    Shoot();
+                    fireCountdown = 1f / fireRate;
+                }
+                
             }
 
             fireCountdown -= Time.deltaTime;
