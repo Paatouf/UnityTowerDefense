@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
+[ExecuteInEditMode]
 public class Node : MonoBehaviour
 {
     public Color hoverColor;
