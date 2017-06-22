@@ -1,13 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+
 public class Node : MonoBehaviour
 {
     public Color hoverColor;
     public Color notEnoughMoneyColor;
     public Color baseColor;
+    public Material groundMat;
+
     public Vector3 positionOffset;
 
     public Renderer rend;
+
+    public bool isActive = true;
+    
 
     [HideInInspector]
     public GameObject turret;
@@ -20,6 +26,11 @@ public class Node : MonoBehaviour
 
     void Awake()
     {
+        if(!isActive)
+        {
+            this.GetComponent<Renderer>().material = groundMat;
+            this.enabled = false;
+        }
         baseColor = GetComponent<Renderer>().material.color;
     }
     void Start ()
@@ -36,70 +47,75 @@ public class Node : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
-            return;
-
-        if (turret != null)
+        if (enabled)
         {
-            buildManager.SelectNode(this);
-            return;
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
 
+            if (turret != null)
+            {
+                buildManager.SelectNode(this);
+                return;
+
+            }
+            if (!buildManager.CanBuild)
+                return;
+
+            BuildTurret(buildManager.GetTurretToBuild());
         }
-        if (!buildManager.CanBuild)
-            return;
-
-        BuildTurret(buildManager.GetTurretToBuild());
     }
 
     void OnMouseEnter()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
-            return;
-
-        if (!buildManager.CanBuild)
-            return;
-
-        if (Input.GetMouseButton(0))
+        if (enabled)
         {
-            if (turret != null)
-            {
-                BuildManager.instance.turretRadiusPrefab.SetActive(false);
+            if (EventSystem.current.IsPointerOverGameObject())
                 return;
-            }
-            else
+
+            if (!buildManager.CanBuild)
+                return;
+
+            if (Input.GetMouseButton(0))
             {
-                BuildTurret(buildManager.GetTurretToBuild());
-                BuildManager.instance.turretRadiusPrefab.transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
-                BuildManager.instance.turretRadiusPrefab.SetActive(true);
-
-                
-            }
-
-            
-        }
-        else
-        {
-            if (turret == null)
-            {
-                BuildManager.instance.turretRadiusPrefab.SetActive(true);
-
-                if (buildManager.HasMoney)
+                if (turret != null)
                 {
-                    rend.material.color = hoverColor;
-                    SetTurretRadius(hoverColor);
+                    BuildManager.instance.turretRadiusPrefab.SetActive(false);
+                    return;
                 }
                 else
                 {
-                    rend.material.color = notEnoughMoneyColor;
-                    SetTurretRadius(notEnoughMoneyColor);
+                    BuildTurret(buildManager.GetTurretToBuild());
+                    BuildManager.instance.turretRadiusPrefab.transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+                    BuildManager.instance.turretRadiusPrefab.SetActive(true);
+
+
                 }
+
+
             }
             else
             {
-                BuildManager.instance.turretRadiusPrefab.SetActive(false);
+                if (turret == null)
+                {
+                    BuildManager.instance.turretRadiusPrefab.SetActive(true);
+
+                    if (buildManager.HasMoney)
+                    {
+                        rend.material.color = hoverColor;
+                        SetTurretRadius(hoverColor);
+                    }
+                    else
+                    {
+                        rend.material.color = notEnoughMoneyColor;
+                        SetTurretRadius(notEnoughMoneyColor);
+                    }
+                }
+                else
+                {
+                    BuildManager.instance.turretRadiusPrefab.SetActive(false);
+                }
             }
         }
-   
     }
 
     void BuildTurret(TurretBlueprint blueprint)
@@ -182,8 +198,11 @@ public class Node : MonoBehaviour
 
     void OnMouseExit()
     {
-        ResetBaseColor();
-        BuildManager.instance.turretRadiusPrefab.SetActive(false);
+        if (enabled)
+        {
+            ResetBaseColor();
+            BuildManager.instance.turretRadiusPrefab.SetActive(false);
+        }
     }
 
 	public void Reset()
