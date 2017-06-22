@@ -206,7 +206,7 @@ MonoBehaviour:
   baseHealth: 10
   fSpeed: 0
   fHealth: 0
-  EnemyBaseMoney: 1
+  EnemyBaseMoney: 2
   DeathEffectPrefab: {fileID: 1008885825209840, guid: e41adea6eada38846a4506b2b8b81a1e,
     type: 2}
   BaseDamagedEffectPrefab: {fileID: 1008885825209840, guid: 255f13df5cceed848b5cb5c3efcbba73,
