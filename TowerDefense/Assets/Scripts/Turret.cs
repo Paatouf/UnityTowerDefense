@@ -29,8 +29,8 @@ public class Turret : MonoBehaviour
     [Header("Unity Setup Fields")]
     public string EnemyBaseTag = "Enemy";
     public float turnSpeed = 10f;
-    public Transform partToRotate;
-
+    public Transform partToRotateX;
+    public Transform partToRotateY;
     
     public Transform firePoint;
 
@@ -58,7 +58,7 @@ public class Turret : MonoBehaviour
 
                     RaycastHit hit;
 
-                    if (Physics.Raycast(firePoint.position, (nearestEnemyBase.transform.position - transform.position), out hit, range))
+                    if (Physics.Raycast(firePoint.position, (nearestEnemyBase.transform.position - firePoint.transform.position), out hit, range))
                     {
                         if(hit.transform.tag =="Enemy")
                         {
@@ -167,8 +167,11 @@ public class Turret : MonoBehaviour
     {
         Vector3 dir = target.transform.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation( dir );
-        Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, turnSpeed * Time.deltaTime).eulerAngles;
-        partToRotate.rotation = Quaternion.Euler(rotation.x, rotation.y, rotation.z);
+        Vector3 rotationX = Quaternion.RotateTowards(partToRotateX.rotation, lookRotation, turnSpeed * Time.deltaTime).eulerAngles;
+        Vector3 rotationY = Quaternion.RotateTowards(partToRotateY.rotation, lookRotation, turnSpeed * Time.deltaTime).eulerAngles;
+
+        partToRotateX.localRotation = Quaternion.Euler(rotationX.x, 0, 0);
+        partToRotateY.rotation = Quaternion.Euler(0, rotationY.y, 0);
     }
 
     void Shoot()
