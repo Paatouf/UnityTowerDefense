@@ -203,7 +203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 1
   baseSpeed: 20
-  baseHealth: 5
+  baseHealth: 15
   fSpeed: 0
   fHealth: 0
   EnemyBaseMoney: 3
