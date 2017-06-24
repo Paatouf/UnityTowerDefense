@@ -44,11 +44,7 @@ public class BuildManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            nodeUI.Hide();
-            Shop.instance.TurretSelectedSquare.SetActive(false);
-            SelectTurretToBuild(null);
-            turretRadiusPrefab.SetActive(false);
-
+            DeselectTurret();
             //la couleur node sur laquelle se trouve la souris au moment du clic ne se reset pas
         }      
     }
@@ -91,5 +87,13 @@ public class BuildManager : MonoBehaviour
     {
         selectedNode = null;
         nodeUI.Hide();
+    }
+
+    public void DeselectTurret()
+    {
+        nodeUI.Hide();
+        Shop.instance.TurretSelectedSquare.SetActive(false);
+        SelectTurretToBuild(null);
+        turretRadiusPrefab.SetActive(false);
     }
 }

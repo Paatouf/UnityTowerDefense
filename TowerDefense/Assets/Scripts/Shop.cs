@@ -110,4 +110,16 @@ public class Shop : MonoBehaviour
         }
     }
 
+    public void Reset()
+    {
+        standardTurret.cost = standardTurret.baseCost;
+        longRangeTurret.cost = longRangeTurret.baseCost;
+        missileTurret.cost = missileTurret.baseCost;
+        laserBeamerTurret.cost = laserBeamerTurret.baseCost;
+
+        standardTurretCostText.text = standardTurret.baseCost.ToString();
+        longRangeTurretCostText.text = longRangeTurret.baseCost.ToString();
+        missileTurretCostText.text = missileTurret.baseCost.ToString();
+        laserBeamerTurretCostText.text = laserBeamerTurret.baseCost.ToString();
+    }
 }

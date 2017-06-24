@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public PlayerStats playerStats;
 	public LevelManager levelMgr;
     public NodeUI nodeUI;
+    public Shop shop;
 
 	public enum LevelState
 	{
@@ -126,6 +127,9 @@ public class GameManager : MonoBehaviour
         waveSpawner.Reset();
 		levelMgr.Reset();
 		playerStats.Reset();
-	}
+        shop.Reset();
+        BuildManager.instance.DeselectTurret();
+
+    }
 
 }

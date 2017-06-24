@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 23240125451204664}
   - component: {fileID: 114286272630619054}
   - component: {fileID: 114190236904077218}
+  - component: {fileID: 95242419549326480}
   m_Layer: 0
   m_Name: BossEnemy
   m_TagString: Enemy
@@ -90,7 +91,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1623825694988564}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.07021904, y: 1.84, z: -3.8179054}
+  m_LocalPosition: {x: -37.33829, y: 12.055347, z: 15.434822}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children:
   - {fileID: 224804580394974190}
@@ -136,6 +137,23 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1623825694988564}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &95242419549326480
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1623825694988564}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 67a9685e683fd2742b29d66c681235a8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114156438484806440
 MonoBehaviour:
   m_ObjectHideFlags: 1

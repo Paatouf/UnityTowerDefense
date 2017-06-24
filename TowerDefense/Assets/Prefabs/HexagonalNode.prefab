@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 114487334445189116}
   m_Layer: 0
   m_Name: HexagonalNode
-  m_TagString: Untagged
+  m_TagString: Node
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 61
@@ -1608,6 +1608,7 @@ MonoBehaviour:
   turretBlueprint:
     prefab: {fileID: 0}
     cost: 0
+    baseCost: 0
     upgradedPrefab: {fileID: 0}
     upgradedCost: 0
   isUpgraded: 0
