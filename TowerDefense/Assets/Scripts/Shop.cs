@@ -117,9 +117,9 @@ public class Shop : MonoBehaviour
         missileTurret.cost = missileTurret.baseCost;
         laserBeamerTurret.cost = laserBeamerTurret.baseCost;
 
-        standardTurretCostText.text = standardTurret.baseCost.ToString();
-        longRangeTurretCostText.text = longRangeTurret.baseCost.ToString();
-        missileTurretCostText.text = missileTurret.baseCost.ToString();
-        laserBeamerTurretCostText.text = laserBeamerTurret.baseCost.ToString();
+        standardTurretCostText.text = "$" + standardTurret.baseCost.ToString();
+        longRangeTurretCostText.text = "$" + longRangeTurret.baseCost.ToString();
+        missileTurretCostText.text = "$" + missileTurret.baseCost.ToString();
+        laserBeamerTurretCostText.text = "$" + laserBeamerTurret.baseCost.ToString();
     }
 }

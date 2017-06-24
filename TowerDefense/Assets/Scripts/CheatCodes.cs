@@ -6,6 +6,7 @@ public class CheatCodes : MonoBehaviour
 {
     void Update()
     {
+#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.Keypad0))
         {
             Time.timeScale = 0;
@@ -41,6 +42,7 @@ public class CheatCodes : MonoBehaviour
             Time.timeScale = 5;
 
         }
+#endif
     }
 
 }
