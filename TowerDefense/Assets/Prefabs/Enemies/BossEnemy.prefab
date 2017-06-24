@@ -202,11 +202,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyType: 2
-  baseSpeed: 3
+  baseSpeed: 6
   baseHealth: 500
   fSpeed: 0
   fHealth: 0
-  EnemyBaseMoney: 50
+  EnemyBaseMoney: 25
   DeathEffectPrefab: {fileID: 1008885825209840, guid: be483da5e0e064741bafd2e97d152d37,
     type: 2}
   BaseDamagedEffectPrefab: {fileID: 1008885825209840, guid: 255f13df5cceed848b5cb5c3efcbba73,

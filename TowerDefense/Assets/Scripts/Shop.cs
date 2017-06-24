@@ -91,7 +91,7 @@ public class Shop : MonoBehaviour
 
     public void UpdateCost(TurretBlueprint turret)
     {
-        turret.cost = System.Convert.ToInt32(System.Math.Floor(turret.cost + turret.cost * 0.2));
+        turret.cost = System.Convert.ToInt32(System.Math.Floor(turret.cost + turret.cost * 0.35));
         if(turret.prefab == standardTurret.prefab)
         {
             standardTurretCostText.text = "$" + turret.cost.ToString();

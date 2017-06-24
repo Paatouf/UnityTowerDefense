@@ -1601,7 +1601,7 @@ MonoBehaviour:
   notEnoughMoneyColor: {r: 0.8088235, g: 0.1665225, b: 0.1665225, a: 0}
   baseColor: {r: 0.3019608, g: 0.2901961, b: 0.25490198, a: 0}
   groundMat: {fileID: 2100000, guid: f4f592c23e6a554499d8107b25a515fa, type: 2}
-  positionOffset: {x: 0, y: 1.33, z: 0}
+  positionOffset: {x: 0, y: 1.166, z: 0}
   rend: {fileID: 0}
   isActive: 1
   turret: {fileID: 0}

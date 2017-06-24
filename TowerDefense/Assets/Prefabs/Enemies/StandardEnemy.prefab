@@ -91,7 +91,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1623825694988564}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.883831, y: 12.323, z: 7.4536643}
+  m_LocalPosition: {x: -27.551027, y: 12.334, z: -3.0564246}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 224804580394974190}
@@ -224,7 +224,7 @@ MonoBehaviour:
   baseHealth: 25
   fSpeed: 0
   fHealth: 0
-  EnemyBaseMoney: 2
+  EnemyBaseMoney: 3
   DeathEffectPrefab: {fileID: 1008885825209840, guid: e41adea6eada38846a4506b2b8b81a1e,
     type: 2}
   BaseDamagedEffectPrefab: {fileID: 1008885825209840, guid: 255f13df5cceed848b5cb5c3efcbba73,

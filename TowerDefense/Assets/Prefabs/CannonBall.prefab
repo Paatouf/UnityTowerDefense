@@ -56,7 +56,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 8702648fc9952214590f04cb609d4cae, type: 2}
+  - {fileID: 2100000, guid: de7c4f43c6697b546ac798b1191a4849, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 50
-  explosionRadius: 3
+  explosionRadius: 0
   bulletDamage: 20
   impactEffect: {fileID: 1008885825209840, guid: b21cebedf041ce04aaa861b5f04c062d,
     type: 2}
