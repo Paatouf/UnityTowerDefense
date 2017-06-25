@@ -66,7 +66,17 @@ public class EnemyBase : MonoBehaviour
 
     public void Slow( float value )
     {
-		fSpeed = baseSpeed * (1f - value);
+		fSpeed = fSpeed * (1f - value);
+    }
+
+    public void Up()
+    {
+        fSpeed = fSpeed * (1f - 0.3f);
+    }
+
+    public void Down()
+    {
+        fSpeed = fSpeed * (1f + 0.3f);
     }
 
     public void SetSpeed()

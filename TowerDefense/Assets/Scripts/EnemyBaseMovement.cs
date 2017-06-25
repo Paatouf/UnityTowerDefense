@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(EnemyBase))]
 public class EnemyBaseMovement : MonoBehaviour
@@ -25,6 +26,21 @@ public class EnemyBaseMovement : MonoBehaviour
         }
 
         EnemyBase.fSpeed = EnemyBase.baseSpeed;
+
+        if(waypointIndex >= 1)
+        {
+            if (target.transform.position.y > Waypoints.points[waypointIndex - 1].transform.position.y)
+            {
+                EnemyBase.Up();
+            }
+
+            if (target.transform.position.y < Waypoints.points[waypointIndex - 1].transform.position.y)
+            {
+                EnemyBase.Down();
+            }
+
+        }
+        
     }
 
     void GetNextWaypoint()
@@ -45,9 +61,9 @@ public class EnemyBaseMovement : MonoBehaviour
 
         StartCoroutine(GameUIManager.instance.DisplayInfo("An enemy has reached you base! " + GameManager.instance.playerStats.Lives+ " lives remaining"));
 
-        Destroy( gameObject );
-
 		GameObject effet = Instantiate(EnemyBase.BaseDamagedEffectPrefab, transform.position, transform.rotation);
         Destroy(effet, 5f);
+
+        Destroy(gameObject);
     }
 }
