@@ -123,7 +123,7 @@ public class Node : MonoBehaviour
     {
         if (GameManager.instance.playerStats.Money < blueprint.cost)
         {
-            StartCoroutine(GameUIManager.instance.DisplayInfo("Sorry, you need more money to build that!"));
+            GameUIManager.instance.DisplayInfo("Sorry, you need more money to build that!");
             return;
         }
 
@@ -168,7 +168,7 @@ public class Node : MonoBehaviour
     {
         if (GameManager.instance.playerStats.Money < turretBlueprint.upgradedCost)
         {
-            StartCoroutine(GameUIManager.instance.DisplayInfo("Not enough money to upgrade this turret!"));
+            GameUIManager.instance.DisplayInfo("Not enough money to upgrade this turret!");
             return;
         }
 

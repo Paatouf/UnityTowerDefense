@@ -59,7 +59,7 @@ public class EnemyBaseMovement : MonoBehaviour
         GameManager.instance.playerStats.Lives--;
 		WaveSpawner.EnemiesAlive--;
 
-        StartCoroutine(GameUIManager.instance.DisplayInfo("An enemy has reached you base! " + GameManager.instance.playerStats.Lives+ " lives remaining"));
+        GameUIManager.instance.DisplayInfo("An enemy has reached you base! " + GameManager.instance.playerStats.Lives+ " lives remaining");
 
 		GameObject effet = Instantiate(EnemyBase.BaseDamagedEffectPrefab, transform.position, transform.rotation);
         Destroy(effet, 5f);

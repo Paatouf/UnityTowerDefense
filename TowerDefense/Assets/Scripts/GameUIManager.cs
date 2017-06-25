@@ -45,12 +45,18 @@ public class GameUIManager : MonoBehaviour
         instance = this;
     }
 
-    public IEnumerator DisplayInfo(string text)
+	public void DisplayInfo( string sText )
+	{
+		StartCoroutine( DisplayInfoRoutine( sText ) );
+	}
+
+
+	private IEnumerator DisplayInfoRoutine(string text)
     {
-        GameUIManager.instance.InfoMessage.SetActive(true);
-        GameUIManager.instance.infoMessageText.text = text;
+		InfoMessage.SetActive(true);
+		infoMessageText.text = text;
         yield return new WaitForSeconds(3);
-        GameUIManager.instance.InfoMessage.SetActive(false);
-    }
+        InfoMessage.SetActive(false);
+	}
 
 }
