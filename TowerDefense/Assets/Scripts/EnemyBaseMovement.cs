@@ -43,7 +43,7 @@ public class EnemyBaseMovement : MonoBehaviour
         GameManager.instance.playerStats.Lives--;
 		WaveSpawner.EnemiesAlive--;
 
-        StartCoroutine(GameUIManager.instance.DisplayInfo("An enemy has reach you base! " + GameManager.instance.playerStats.Lives+ " lives remaining"));
+        StartCoroutine(GameUIManager.instance.DisplayInfo("An enemy has reached you base! " + GameManager.instance.playerStats.Lives+ " lives remaining"));
 
         Destroy( gameObject );
 
