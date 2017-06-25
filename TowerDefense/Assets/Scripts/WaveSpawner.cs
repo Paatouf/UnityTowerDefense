@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class WaveSpawner : MonoBehaviour
 {
@@ -22,9 +21,6 @@ public class WaveSpawner : MonoBehaviour
 	private List<EnemyBase> m_enemiesList;
     public Transform spawnPoint;
     private GameObject waveCountPanel;
-
-    public Text waveCountDownText;
-    public Text waveIndexText;
 
     public float timeBetweenWaves = 5f;
     public float spawnSpeedInsideWave = 0.3f;
@@ -52,7 +48,7 @@ public class WaveSpawner : MonoBehaviour
                 }
 
                 countdown -= Time.deltaTime;
-                waveCountDownText.text = Mathf.Floor(countdown + 1).ToString();
+                GameUIManager.instance.waveCountDownText.text = Mathf.Floor(countdown + 1).ToString();
             }
 
             if (GameManager.GameState == GameManager.LevelState.InProgress && WaveIndex == waves.Count && EnemiesAlive == 0 && GameManager.instance.playerStats.Lives > 0)
@@ -76,11 +72,11 @@ public class WaveSpawner : MonoBehaviour
 		m_enemiesList = new List<EnemyBase>();
 		WaveIndex = 0;
 		EnemiesAlive = 0;
-		waveCountPanel = waveCountDownText.transform.parent.gameObject;
+		waveCountPanel = GameUIManager.instance.waveCountDownText.transform.parent.gameObject;
 		waveCountPanel.SetActive( true );
 
-        waveCountDownText.text = "";
-        waveIndexText.text = "";
+        GameUIManager.instance.waveCountDownText.text = "";
+        GameUIManager.instance.waveIndexText.text = "";
 
         countdown = 10f;
 	}
@@ -91,7 +87,7 @@ public class WaveSpawner : MonoBehaviour
 		{
 			Wave wave = waves[ WaveIndex ];
 
-			waveIndexText.text = ( WaveIndex + 1 ).ToString() + " / " + waves.Count;
+            GameUIManager.instance.waveIndexText.text = ( WaveIndex + 1 ).ToString() + " / " + waves.Count;
 			EnemiesAlive = wave.count;
 
             for (int i = 0; i < wave.m_enemiesList.Count; ++i)

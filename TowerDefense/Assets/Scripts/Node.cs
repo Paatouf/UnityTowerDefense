@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Collections;
 
 public class Node : MonoBehaviour
 {
@@ -122,7 +123,7 @@ public class Node : MonoBehaviour
     {
         if (GameManager.instance.playerStats.Money < blueprint.cost)
         {
-            Debug.Log("Not enough money to build that! - TODO Display on UI");
+            StartCoroutine(GameUIManager.instance.DisplayInfo("Sorry, you need more money to build that!"));
             return;
         }
 
@@ -167,7 +168,7 @@ public class Node : MonoBehaviour
     {
         if (GameManager.instance.playerStats.Money < turretBlueprint.upgradedCost)
         {
-            Debug.Log("Not enough money to upgrade that! - TODO Display on UI");
+            StartCoroutine(GameUIManager.instance.DisplayInfo("Not enough money to upgrade this turret!"));
             return;
         }
 

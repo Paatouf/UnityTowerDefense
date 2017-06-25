@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
@@ -11,11 +10,6 @@ public class Shop : MonoBehaviour
     public TurretBlueprint longRangeTurret;
     public TurretBlueprint missileTurret;
     public TurretBlueprint laserBeamerTurret;
-
-    public Text standardTurretCostText;
-    public Text longRangeTurretCostText;
-    public Text missileTurretCostText;
-    public Text laserBeamerTurretCostText;
 
     public GameObject GOstandardTurret;
     public GameObject GOlongRangeTurret;
@@ -28,13 +22,8 @@ public class Shop : MonoBehaviour
 
     void Awake()
     {
-        if (instance != null)
-        {
-            Debug.LogError("More than one Shop in the scene!");
-        }
         instance = this;
     }
-
 
     void Start()
     {
@@ -94,19 +83,19 @@ public class Shop : MonoBehaviour
         turret.cost = System.Convert.ToInt32(System.Math.Floor(turret.cost + turret.cost * 0.35));
         if(turret.prefab == standardTurret.prefab)
         {
-            standardTurretCostText.text = "$" + turret.cost.ToString();
+            GameUIManager.instance.standardTurretCostText.text = "$" + turret.cost.ToString();
         }
         else if(turret.prefab == longRangeTurret.prefab)
         {
-            longRangeTurretCostText.text = "$" + turret.cost.ToString();
+            GameUIManager.instance.longRangeTurretCostText.text = "$" + turret.cost.ToString();
         }
         else if(turret.prefab == missileTurret.prefab)
         {
-            missileTurretCostText.text = "$"+turret.cost.ToString();
+            GameUIManager.instance.missileTurretCostText.text = "$"+turret.cost.ToString();
         }
         else if(turret.prefab == laserBeamerTurret.prefab)
         {
-            laserBeamerTurretCostText.text = "$" + turret.cost.ToString();
+            GameUIManager.instance.laserBeamerTurretCostText.text = "$" + turret.cost.ToString();
         }
     }
 
@@ -117,9 +106,9 @@ public class Shop : MonoBehaviour
         missileTurret.cost = missileTurret.baseCost;
         laserBeamerTurret.cost = laserBeamerTurret.baseCost;
 
-        standardTurretCostText.text = "$" + standardTurret.baseCost.ToString();
-        longRangeTurretCostText.text = "$" + longRangeTurret.baseCost.ToString();
-        missileTurretCostText.text = "$" + missileTurret.baseCost.ToString();
-        laserBeamerTurretCostText.text = "$" + laserBeamerTurret.baseCost.ToString();
+        GameUIManager.instance.standardTurretCostText.text = "$" + standardTurret.baseCost.ToString();
+        GameUIManager.instance.longRangeTurretCostText.text = "$" + longRangeTurret.baseCost.ToString();
+        GameUIManager.instance.missileTurretCostText.text = "$" + missileTurret.baseCost.ToString();
+        GameUIManager.instance.laserBeamerTurretCostText.text = "$" + laserBeamerTurret.baseCost.ToString();
     }
 }

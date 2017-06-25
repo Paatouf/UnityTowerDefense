@@ -1,14 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class NodeUI : MonoBehaviour
 {
     public Node target;
     public GameObject ui;
-    public Text upgradeCost;
-    public Text sellCost;
 
 	public void SetTarget(Node _target)
     {
@@ -16,11 +13,11 @@ public class NodeUI : MonoBehaviour
 
         transform.position = target.GetBuiltPosition();
 
-        upgradeCost.text = "$"+target.turretBlueprint.upgradedCost.ToString();
-        sellCost.text = "$" + target.turretBlueprint.GetSellAmount().ToString();
+        GameUIManager.instance.upgradeCost.text = "$"+target.turretBlueprint.upgradedCost.ToString();
+        GameUIManager.instance.sellCost.text = "$" + target.turretBlueprint.GetSellAmount().ToString();
         ui.SetActive(true);
 
-        GameObject parent = upgradeCost.gameObject.transform.parent.gameObject;
+        GameObject parent = GameUIManager.instance.upgradeCost.gameObject.transform.parent.gameObject;
 
         if (target.isUpgraded)
         {

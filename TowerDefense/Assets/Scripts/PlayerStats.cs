@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 
 public class PlayerStats : MonoBehaviour
@@ -10,9 +9,7 @@ public class PlayerStats : MonoBehaviour
 	public int nBaseMoney = 20;
 	public int nBaseLives = 10;
 
-    public Text livesText;
-
-	public void Start()
+    public void Start()
 	{
 		Reset();
 	}
@@ -37,7 +34,7 @@ public class PlayerStats : MonoBehaviour
     
     void UpdateLives()
     {
-        livesText.text = "Lives: "+ m_nCurrentLives.ToString();
+        GameUIManager.instance.livesText.text = "Lives: "+ m_nCurrentLives.ToString();
     }
 
 	public void Reset()

@@ -1,11 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
-	public Text moneyText;
-
 	public List<Node> m_turretList;
 	// Use this for initialization
 	void Start ()
@@ -39,6 +36,6 @@ public class LevelManager : MonoBehaviour
 
 	public void RefreshMoney()
 	{
-		moneyText.text = "$ " + GameManager.instance.playerStats.Money;
+		GameUIManager.instance.moneyText.text = "$ " + GameManager.instance.playerStats.Money;
 	}
 }
