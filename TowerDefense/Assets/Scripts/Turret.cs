@@ -103,8 +103,11 @@ public class Turret : MonoBehaviour
 
                 return;
         }
-
-        LockOnTarget();
+        if(canShoot)
+        {
+            LockOnTarget();
+        }
+        
         
         if(useLaser)
         {
