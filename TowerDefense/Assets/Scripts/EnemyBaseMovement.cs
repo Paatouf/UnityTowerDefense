@@ -19,7 +19,7 @@ public class EnemyBaseMovement : MonoBehaviour
         Vector3 dir = target.position - transform.position; //direction
         transform.Translate(dir.normalized * EnemyBase.fSpeed * Time.deltaTime, Space.World);
 
-        if (Vector3.Distance(transform.position, target.position) <= 0.2f)
+        if (Vector3.Distance(transform.position, target.position) <= 0.5f)
         {
             GetNextWaypoint();
         }

@@ -1,6 +1,0 @@
-
-**TODO LIST**
-
-0 - Merge les deux ecrans de fin de jeu en un seul (GameOver/Win)
-
-0 - Improve le Wavespawner
