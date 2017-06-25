@@ -43,8 +43,8 @@ public class EnemyBase : MonoBehaviour
         healthBar.transform.parent.parent.gameObject.SetActive(true);
 
 		fHealth -= amount;
-        healthBar.fillAmount = fHealth / baseHealth;
-   
+        healthBar.fillAmount = fHealth / Mathf.Floor(baseHealth + (WaveSpawner.WaveIndex * 4)); ;
+
         if ( fHealth <= 0 && !bIsDead)
         {
             bIsDead = true;
