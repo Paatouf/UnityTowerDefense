@@ -7,12 +7,12 @@ public class Shop : MonoBehaviour
     public static Shop instance;
 
     public TurretBlueprint standardTurret;
-    public TurretBlueprint longRangeTurret;
+    public TurretBlueprint cannonTurretTurret;
     public TurretBlueprint missileTurret;
     public TurretBlueprint laserBeamerTurret;
 
     public GameObject GOstandardTurret;
-    public GameObject GOlongRangeTurret;
+    public GameObject GOcannonTurretTurret;
     public GameObject GOmissileTurret;
     public GameObject GOlaserBeamerTurret;
 
@@ -39,7 +39,7 @@ public class Shop : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Alpha2))
         {
-            SelectLongRangeTurret();
+            SelectCannonTurretTurret();
         }
         if(Input.GetKeyDown(KeyCode.Alpha3))
         {
@@ -56,10 +56,10 @@ public class Shop : MonoBehaviour
         buildManager.SelectTurretToBuild(standardTurret);
         SetSelectedTurretSquare(GOstandardTurret.transform);
     }
-    public void SelectLongRangeTurret()
+    public void SelectCannonTurretTurret()
     {
-        buildManager.SelectTurretToBuild(longRangeTurret);
-        SetSelectedTurretSquare(GOlongRangeTurret.transform);
+        buildManager.SelectTurretToBuild(cannonTurretTurret);
+        SetSelectedTurretSquare(GOcannonTurretTurret.transform);
     }
     public void SelectMissileTurret()
     {
@@ -85,9 +85,9 @@ public class Shop : MonoBehaviour
         {
             GameUIManager.instance.standardTurretCostText.text = "$" + turret.cost.ToString();
         }
-        else if(turret.prefab == longRangeTurret.prefab)
+        else if(turret.prefab == cannonTurretTurret.prefab)
         {
-            GameUIManager.instance.longRangeTurretCostText.text = "$" + turret.cost.ToString();
+            GameUIManager.instance.cannonTurretTurretCostText.text = "$" + turret.cost.ToString();
         }
         else if(turret.prefab == missileTurret.prefab)
         {
@@ -102,12 +102,12 @@ public class Shop : MonoBehaviour
     public void Reset()
     {
         standardTurret.cost = standardTurret.baseCost;
-        longRangeTurret.cost = longRangeTurret.baseCost;
+        cannonTurretTurret.cost = cannonTurretTurret.baseCost;
         missileTurret.cost = missileTurret.baseCost;
         laserBeamerTurret.cost = laserBeamerTurret.baseCost;
 
         GameUIManager.instance.standardTurretCostText.text = "$" + standardTurret.baseCost.ToString();
-        GameUIManager.instance.longRangeTurretCostText.text = "$" + longRangeTurret.baseCost.ToString();
+        GameUIManager.instance.cannonTurretTurretCostText.text = "$" + cannonTurretTurret.baseCost.ToString();
         GameUIManager.instance.missileTurretCostText.text = "$" + missileTurret.baseCost.ToString();
         GameUIManager.instance.laserBeamerTurretCostText.text = "$" + laserBeamerTurret.baseCost.ToString();
     }

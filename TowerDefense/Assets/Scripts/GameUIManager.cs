@@ -31,7 +31,7 @@ public class GameUIManager : MonoBehaviour
 
     [Header("Shop")]
     public Text standardTurretCostText;
-    public Text longRangeTurretCostText;
+    public Text cannonTurretTurretCostText;
     public Text missileTurretCostText;
     public Text laserBeamerTurretCostText;
 
