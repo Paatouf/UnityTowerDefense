@@ -28,10 +28,13 @@ public class WaveSpawner : MonoBehaviour
 
     public static int WaveIndex = 0;
 
+    private HierarchyManager hierarchyManager;
+
     void Start()
     {
         Reset();
-	}
+        hierarchyManager = GameManager.instance.GetComponent<HierarchyManager>();
+    }
 
     void Update()
     {
@@ -105,6 +108,9 @@ public class WaveSpawner : MonoBehaviour
 
     void SpawnEnemyBase( GameObject EnemyBasePrefab )
     {
-       m_enemiesList.Add( Instantiate( EnemyBasePrefab, spawnPoint.position, spawnPoint.rotation ).GetComponent<EnemyBase>() );
+        GameObject enemy = (GameObject)Instantiate(EnemyBasePrefab, spawnPoint.position, spawnPoint.rotation);
+        enemy.transform.parent = hierarchyManager.EnemiesParent;
+
+        m_enemiesList.Add(enemy.GetComponent<EnemyBase>() );
     }
 }

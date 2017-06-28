@@ -29,9 +29,13 @@ public class EnemyBase : MonoBehaviour
 
     public Image healthBar;
 
+    private HierarchyManager hierarchyManager;
+
     void Start()
     {
-		fHealth = baseHealth;
+        hierarchyManager = GameManager.instance.GetComponent<HierarchyManager>();
+
+        fHealth = baseHealth;
 		fSpeed = baseSpeed;
 
         SetHealth();
@@ -56,6 +60,7 @@ public class EnemyBase : MonoBehaviour
     {
         GameObject DeathEffect = Instantiate(DeathEffectPrefab, transform.position, transform.rotation);
         DeathEffect.GetComponent<Renderer>().material.color = GetComponent<Renderer>().material.color;
+        DeathEffect.transform.parent = hierarchyManager.EffectsParent;
         Destroy(DeathEffect, 3f);
 
         WaveSpawner.EnemiesAlive--;

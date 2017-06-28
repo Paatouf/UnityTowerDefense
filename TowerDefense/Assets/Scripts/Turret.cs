@@ -34,9 +34,12 @@ public class Turret : MonoBehaviour
     
     public Transform firePoint;
 
+    private HierarchyManager hierarchyManager;
+
 
     void Start()
     {
+        hierarchyManager = GameManager.instance.GetComponent<HierarchyManager>();
         InvokeRepeating( "UpdateTarget", 0f, 0.5f );
     }
 
@@ -181,6 +184,7 @@ public class Turret : MonoBehaviour
     {
 		GameObject bulletGO = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 		Bullet bullet = bulletGO.GetComponent<Bullet>();
+        bulletGO.transform.parent = hierarchyManager.BulletsParent;
 
         if (bullet != null)
         {

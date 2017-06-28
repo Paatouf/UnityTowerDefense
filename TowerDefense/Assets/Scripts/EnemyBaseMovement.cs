@@ -8,9 +8,11 @@ public class EnemyBaseMovement : MonoBehaviour
     private int waypointIndex = 0;
 
     private EnemyBase EnemyBase;
+    private HierarchyManager hierarchyManager;
 
     void Start()
     {
+        hierarchyManager = GameManager.instance.GetComponent<HierarchyManager>();
         EnemyBase = GetComponent<EnemyBase>();
         target = Waypoints.points[0];
     }
@@ -62,6 +64,7 @@ public class EnemyBaseMovement : MonoBehaviour
         GameUIManager.instance.DisplayInfo("An enemy has reached you base! " + GameManager.instance.playerStats.Lives+ " lives remaining");
 
 		GameObject effet = Instantiate(EnemyBase.BaseDamagedEffectPrefab, transform.position, transform.rotation);
+        effet.transform.parent = hierarchyManager.EffectsParent;
         Destroy(effet, 5f);
 
         Destroy(gameObject);

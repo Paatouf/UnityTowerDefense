@@ -23,6 +23,8 @@ public class Node : MonoBehaviour
     [HideInInspector]
     public bool isUpgraded = false;
 
+    private HierarchyManager hierarchyManager;
+
     BuildManager buildManager;
 
     void Awake()
@@ -38,6 +40,7 @@ public class Node : MonoBehaviour
     {
         rend = GetComponent<Renderer>();
         buildManager = BuildManager.instance;
+        hierarchyManager = GameManager.instance.GetComponent<HierarchyManager>();
     }
 
     public Vector3 GetBuiltPosition()
@@ -131,12 +134,14 @@ public class Node : MonoBehaviour
 
 
         GameObject _turret = Instantiate(blueprint.prefab, GetBuiltPosition(), Quaternion.identity);
+        _turret.transform.parent = hierarchyManager.TurretsParent;
         turret = _turret;
 
         turretBlueprint = blueprint;
 
         GameObject effect = Instantiate(buildManager.buildEffect, GetBuiltPosition(), Quaternion.identity);
         effect.GetComponent<Renderer>().material.color = turret.GetComponentInChildren<MeshRenderer>().material.color;
+        effect.transform.parent = hierarchyManager.EffectsParent;
         Destroy(effect, 3f);
 
         Shop.instance.UpdateCost(blueprint);
@@ -157,6 +162,7 @@ public class Node : MonoBehaviour
 
         GameObject effect = Instantiate(buildManager.sellEffect, GetBuiltPosition(), Quaternion.identity);
         effect.GetComponent<Renderer>().material.color = turret.GetComponentInChildren<MeshRenderer>().material.color;
+        effect.transform.parent = hierarchyManager.EffectsParent; 
         Destroy(effect, 3f);
         
         Destroy(turret);
@@ -181,10 +187,12 @@ public class Node : MonoBehaviour
         //build a new one
         GameObject _turret = Instantiate(turretBlueprint.upgradedPrefab, GetBuiltPosition(), Quaternion.identity);
         turret = _turret;
+        _turret.transform.parent = hierarchyManager.TurretsParent;
 
         // à changer pour un effet d'upgrade dédié
         GameObject effect = Instantiate(buildManager.buildEffect, GetBuiltPosition(), Quaternion.identity); 
         effect.GetComponent<Renderer>().material.color = turret.GetComponentInChildren<MeshRenderer>().material.color;
+        effect.transform.parent = hierarchyManager.EffectsParent;
         Destroy(effect, 3f);
 		
         isUpgraded = true;

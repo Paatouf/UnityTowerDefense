@@ -8,6 +8,12 @@ public class Bullet : MonoBehaviour
     public int bulletDamage = 3;
     public GameObject impactEffect;
 
+    private HierarchyManager hierarchyManager;
+
+    public void Start()
+    {
+        hierarchyManager = GameManager.instance.GetComponent<HierarchyManager>();
+    }
 
     public void Seek(Transform _target)
     {
@@ -40,6 +46,7 @@ public class Bullet : MonoBehaviour
     void HitTarget()
     {
         GameObject effectIns = Instantiate(impactEffect, transform.position, transform.rotation);
+        effectIns.transform.parent = hierarchyManager.EffectsParent;
         Destroy(effectIns,3f);
 
         if(explosionRadius > 0)
