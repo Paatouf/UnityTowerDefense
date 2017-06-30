@@ -10,10 +10,17 @@ public class MainMenu : MonoBehaviour
 
 	public void Play ()
     {
+        levelToLoad = "LevelA";
         SceneManager.LoadScene(levelToLoad);
 	}
-	
-	public void Quit ()
+
+    public void Play2()
+    {
+        levelToLoad = "LevelB";
+        SceneManager.LoadScene(levelToLoad);
+    }
+
+    public void Quit ()
     {
         Application.Quit();
 	}
