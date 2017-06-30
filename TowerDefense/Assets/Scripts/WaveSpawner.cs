@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WaveSpawner : MonoBehaviour
 {
@@ -50,8 +51,11 @@ public class WaveSpawner : MonoBehaviour
                     return;
                 }
 
-                countdown -= Time.deltaTime;
-                GameUIManager.instance.waveCountDownText.text = Mathf.Floor(countdown + 1).ToString();
+                if(SceneManager.GetActiveScene().name != "MainMenu")
+                {
+                    countdown -= Time.deltaTime;
+                    GameUIManager.instance.waveCountDownText.text = Mathf.Floor(countdown + 1).ToString();
+                }
             }
 
             if (GameManager.GameState == GameManager.LevelState.InProgress && WaveIndex == waves.Count && EnemiesAlive == 0 && GameManager.instance.playerStats.Lives > 0)

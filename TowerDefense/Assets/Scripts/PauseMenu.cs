@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -30,12 +31,12 @@ public class PauseMenu : MonoBehaviour
     public void Retry()	
     {
         Toggle();
-        sceneFader.FadeTo();
+        sceneFader.FadeTo(SceneManager.GetActiveScene().name);
     }
 
     public void Menu()
     {
         Toggle();
-        sceneFader.FadeTo();
+        sceneFader.FadeTo("MainMenu");
     }
 }

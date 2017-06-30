@@ -39,10 +39,18 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-		SetInstance(GetComponent<GameManager>());
+        if(GameManager.instance == this)
+        {
+            SetInstance(GetComponent<GameManager>());
+        }
+        else
+        {
+            DestroyInstance();
+        }
+        
         playerStats = GetComponent<PlayerStats>();
         ResetGame();
-	}
+    }
 
     private static void SetInstance(GameManager newInstance)
     {

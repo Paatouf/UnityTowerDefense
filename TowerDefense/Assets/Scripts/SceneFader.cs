@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class SceneFader : MonoBehaviour
 {
@@ -15,9 +16,9 @@ public class SceneFader : MonoBehaviour
 		StartCoroutine(FadeIn());
 	}
 
-	public void FadeTo()
+	public void FadeTo(string scene)
 	{
-		StartCoroutine(FadeOut());
+		StartCoroutine(FadeOut(scene));
 	}
 
 	IEnumerator FadeIn()
@@ -34,7 +35,7 @@ public class SceneFader : MonoBehaviour
 		GameManager.instance.Launch();
 	}
 
-	IEnumerator FadeOut()
+	IEnumerator FadeOut(string scene)
 	{
 		float t = 0f;
 
@@ -46,6 +47,14 @@ public class SceneFader : MonoBehaviour
 			yield return null;
 		}
 		GameManager.instance.ResetGame();
-		StartCoroutine(FadeIn());
+
+        if(SceneManager.GetActiveScene().name == scene)
+        {
+		    StartCoroutine(FadeIn());
+        }
+        else
+        {
+            SceneManager.LoadScene(scene);
+        }
 	}
 }

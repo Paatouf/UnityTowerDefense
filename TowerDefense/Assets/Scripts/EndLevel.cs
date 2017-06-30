@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class EndLevel : MonoBehaviour
 {
@@ -23,12 +24,12 @@ public class EndLevel : MonoBehaviour
 
     public void Retry()
     {
-        GameUIManager.instance.sceneFader.FadeTo();
+        GameUIManager.instance.sceneFader.FadeTo(SceneManager.GetActiveScene().name);
     }
 
     public void Menu()
     {
-        GameUIManager.instance.sceneFader.FadeTo();
+        GameUIManager.instance.sceneFader.FadeTo("MainMenu");
         Time.timeScale = 1;
     }
         
