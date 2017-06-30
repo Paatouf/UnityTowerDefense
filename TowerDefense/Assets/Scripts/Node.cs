@@ -225,4 +225,13 @@ public class Node : MonoBehaviour
     {
         rend.material.color = baseColor;
     }
+
+    private void OnDrawGizmos()
+    {
+        if(!isActive)
+        {
+            Vector3 pos = new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z);
+            Gizmos.DrawSphere(pos, 1);
+        }
+    }
 }
