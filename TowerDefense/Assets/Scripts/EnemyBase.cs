@@ -66,6 +66,7 @@ public class EnemyBase : MonoBehaviour
         WaveSpawner.EnemiesAlive--;
 
         GameManager.instance.levelMgr.AddMoney(EnemyBaseMoney);
+        GameUIManager.instance.moneyText.GetComponent<Animator>().SetTrigger("Refresh");
         Destroy( gameObject );
     }
 
