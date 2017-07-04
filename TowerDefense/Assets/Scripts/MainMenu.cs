@@ -61,7 +61,7 @@ public class MainMenu : MonoBehaviour
         LevelBSelected = false;
         LevelCSelected = false;
 
-        ConfirmText.text = "ARE YOU SURE YOU WANT TO PLAY THE LEVEL A";
+        ConfirmText.text = "LEVEL A?";
         GoButton.SetActive(true);
     }
     public void SelectLevelB()
@@ -70,7 +70,7 @@ public class MainMenu : MonoBehaviour
         LevelBSelected = true;
         LevelCSelected = false;
 
-        ConfirmText.text = "ARE YOU SURE YOU WANT TO PLAY THE LEVEL B";
+        ConfirmText.text = "LEVEL B?";
         GoButton.SetActive(true);
     }
     public void SelectLevelC()
@@ -79,7 +79,7 @@ public class MainMenu : MonoBehaviour
         LevelBSelected = false;
         LevelCSelected = true;
 
-        ConfirmText.text = "ARE YOU SURE YOU WANT TO PLAY THE LEVEL C";
+        ConfirmText.text = "LEVEL C?";
         GoButton.SetActive(true);
     }
 
