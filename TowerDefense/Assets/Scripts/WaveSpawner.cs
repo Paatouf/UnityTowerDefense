@@ -54,7 +54,15 @@ public class WaveSpawner : MonoBehaviour
                 if(SceneManager.GetActiveScene().name != "MainMenu")
                 {
                     countdown -= Time.deltaTime;
-                    GameUIManager.instance.waveCountDownText.text = Mathf.Floor(countdown + 1).ToString();
+                    if(Mathf.Floor(countdown + 1) == 0)
+                    {
+                        GameUIManager.instance.waveCountDownText.text = "";
+                    }
+                    else
+                    {
+                        GameUIManager.instance.waveCountDownText.text = Mathf.Floor(countdown + 1).ToString();
+                    }
+                    
                 }
             }
 
